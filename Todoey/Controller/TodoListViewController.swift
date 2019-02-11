@@ -12,21 +12,28 @@ class TodoListViewController: UITableViewController {
     
     var itemArray = [Item]()
     
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    
     let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+
+        
+        print(dataFilePath)
+        
         let newItem = Item()
         newItem.title = "Do the groceries"
         itemArray.append(newItem)
         
         let newItem2 = Item()
-        newItem.title = "Cook"
+        newItem2.title = "Cook"
         itemArray.append(newItem2)
         
         let newItem3 = Item()
-        newItem.title = "Eat"
+        newItem3.title = "Eat"
         itemArray.append(newItem3)
         
         if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
@@ -57,7 +64,7 @@ class TodoListViewController: UITableViewController {
 
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
 
-        tableView.reloadData()
+        saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -75,8 +82,7 @@ class TodoListViewController: UITableViewController {
             let newItem = Item()
             newItem.title = textField.text!
             self.itemArray.append(newItem)
-            self.defaults.set(self.itemArray, forKey: "TodoListArray")
-            self.tableView.reloadData()
+//            saveItems()
         }
         
         alert.addTextField { (alertTextField) in
@@ -87,6 +93,17 @@ class TodoListViewController: UITableViewController {
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    func saveItems() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+        } catch {
+            print("Error encoding item array, \(error)")
+        }
+        tableView.reloadData()
     }
     
     
