@@ -58,6 +58,7 @@
 		3E97B51322107ADD003B99E2 /* Todoey */ = {
 			isa = PBXGroup;
 			children = (
+				3E97B51422107ADD003B99E2 /* AppDelegate.swift */,
 				3E97B52922109FC7003B99E2 /* Controller */,
 				3E97B52822109FAC003B99E2 /* Model */,
 				3E97B52A22109FE3003B99E2 /* View */,
@@ -78,7 +79,6 @@
 		3E97B52922109FC7003B99E2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3E97B51422107ADD003B99E2 /* AppDelegate.swift */,
 				3E97B51622107ADD003B99E2 /* TodoListViewController.swift */,
 				3E97B5502211BABC003B99E2 /* CategoryViewController.swift */,
 			);
